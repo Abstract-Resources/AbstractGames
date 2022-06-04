@@ -1,4 +1,4 @@
-package dev.abstractgames.arena;
+package dev.abstractgames.object;
 
 import cn.nukkit.level.Location;
 import lombok.AllArgsConstructor;

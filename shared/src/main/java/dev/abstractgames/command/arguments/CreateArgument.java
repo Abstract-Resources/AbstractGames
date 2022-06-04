@@ -7,7 +7,7 @@ import cn.nukkit.level.Level;
 import cn.nukkit.utils.TextFormat;
 import dev.abstractgames.AbstractPlugin;
 import dev.abstractgames.TaskUtil;
-import dev.abstractgames.arena.GameMap;
+import dev.abstractgames.object.GameMap;
 import dev.abstractgames.command.Argument;
 import dev.abstractgames.factory.MapFactory;
 import dev.abstractgames.utils.GameUtils;

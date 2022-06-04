@@ -3,8 +3,8 @@ package dev.abstractgames.factory;
 import cn.nukkit.utils.Config;
 import com.google.common.collect.ImmutableMap;
 import dev.abstractgames.AbstractPlugin;
-import dev.abstractgames.arena.GameMap;
-import dev.abstractgames.arena.GameSpawn;
+import dev.abstractgames.object.GameMap;
+import dev.abstractgames.object.GameSpawn;
 import lombok.Getter;
 
 import java.io.File;
