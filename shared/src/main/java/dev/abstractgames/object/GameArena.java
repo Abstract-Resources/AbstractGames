@@ -27,14 +27,14 @@ public final class GameArena {
     }
 
     private final int id;
-    private final GameMap map;
-    private final String worldName;
+    private final @NonNull GameMap map;
+    private final @NonNull String worldName;
 
-    @Setter private GameStatus status = GameStatus.IDLE;
+    @Setter private @NonNull GameStatus status = GameStatus.IDLE;
 
     private final Set<GamePlayer> players = new HashSet<>();
 
-    public GameArena(int id, GameMap map) {
+    public GameArena(int id, @NonNull GameMap map) {
         this.id = id;
 
         this.map = map;
@@ -44,6 +44,16 @@ public final class GameArena {
 
     public @Nullable Level getWorld() {
         return Server.getInstance().getLevelByName(this.worldName);
+    }
+
+    public @NonNull Level getWorldNonNull() {
+        Level level = this.getWorld();
+
+        if (level == null) {
+            throw new RuntimeException("World '" + this.worldName + "' returned 'null' by the method declared as '@NonNull'");
+        }
+
+        return level;
     }
 
     public boolean worldGenerated() {
@@ -69,9 +79,11 @@ public final class GameArena {
             return;
         }
 
-        GamePlayer gamePlayer = AbstractPlugin.getInstance().registerNewPlayer(player);
+        GamePlayer gamePlayer = AbstractPlugin.getInstance().registerNewPlayer(player, this);
 
         this.players.add(gamePlayer);
+
+        gamePlayer.lobbyAttributes();
 
         this.pushScoreboardUpdate();
 

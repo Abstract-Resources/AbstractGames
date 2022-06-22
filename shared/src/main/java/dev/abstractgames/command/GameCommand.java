@@ -4,7 +4,10 @@ import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
 import cn.nukkit.utils.TextFormat;
 import dev.abstractgames.command.arguments.CreateArgument;
+import dev.abstractgames.command.arguments.JoinArgument;
+import lombok.NonNull;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,7 +20,8 @@ public final class GameCommand extends Command {
         super(name, description);
 
         this.registerArgument(
-                new CreateArgument("create", "game.command.create")
+                new CreateArgument("create", "game.command.create"),
+                new JoinArgument("join", "game.command.join")
         );
     }
 
@@ -25,7 +29,7 @@ public final class GameCommand extends Command {
         this.arguments.addAll(Arrays.asList(arguments));
     }
 
-    private Argument getArgument(String argumentLabel) {
+    private @Nullable Argument getArgument(@NonNull String argumentLabel) {
         return this.arguments.stream()
                 .filter(argument -> argument.getName().equalsIgnoreCase(argumentLabel))
                 .findAny().orElse(null);

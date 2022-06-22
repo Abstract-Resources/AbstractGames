@@ -3,6 +3,7 @@ package dev.abstractgames.object.player;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.inventory.Inventory;
+import dev.abstractgames.object.GameArena;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public final class GamePlayer {
 
     private final @NonNull String xuid;
     private final @NonNull String name;
+    private final @NonNull GameArena arena;
 
     @Setter private boolean spectator = false;
 
@@ -44,5 +46,13 @@ public final class GamePlayer {
         instance.getOffhandInventory().clearAll();
         instance.getCursorInventory().clearAll();
         instance.getUIInventory().clearAll();
+    }
+
+    public void lobbyAttributes() {
+        Player instance = this.getInstanceNonNull();
+
+        this.clearInventory();
+
+        instance.teleport(this.arena.getWorldNonNull().getSpawnLocation());
     }
 }

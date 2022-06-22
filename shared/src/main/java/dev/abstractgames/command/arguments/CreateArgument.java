@@ -11,6 +11,7 @@ import dev.abstractgames.object.GameMap;
 import dev.abstractgames.command.Argument;
 import dev.abstractgames.factory.MapFactory;
 import dev.abstractgames.utils.GameUtils;
+import lombok.NonNull;
 
 import java.io.File;
 import java.nio.file.Paths;
@@ -23,7 +24,7 @@ public final class CreateArgument extends Argument {
     }
 
     @Override
-    public void execute(CommandSender sender, String commandLabel, String[] args) {
+    public void execute(@NonNull CommandSender sender, @NonNull String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(TextFormat.RED + "Run this command in-game");
 
