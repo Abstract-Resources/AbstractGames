@@ -1,0 +1,4 @@
+name: AbstractTagGame
+version: 0.1
+main: dev.abstractgames.TagGamePlugin
+author: Abstract

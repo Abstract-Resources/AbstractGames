@@ -69,6 +69,12 @@ public final class GameArena {
     }
 
     public void joinAsPlayer(@NonNull Player player) {
+        if (!this.worldGenerated()) {
+            // TODO: Add me to queue...
+
+            return;
+        }
+
         if (!Server.getInstance().loadLevel(this.worldName)) {
             player.sendMessage(TextFormat.RED + "An error occurred while tried join to the game '" + this.id + "'");
 
