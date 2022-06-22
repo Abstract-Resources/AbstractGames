@@ -36,13 +36,10 @@ public final class CreateArgument extends Argument {
             return;
         }
 
-        int minSlots;
-        int maxSlots;
+        int minSlots = this.parseInt(args[0]);
+        int maxSlots = this.parseInt(args[1]);
 
-        try {
-            minSlots = Integer.parseInt(args[0]);
-            maxSlots = Integer.parseInt(args[1]);
-        } catch (Exception e) {
+        if (minSlots <= 0 || maxSlots <= 0) {
             sender.sendMessage(TextFormat.RED + "Usage: /" + commandLabel + " create <minSlots> <maxSlots>");
 
             return;
@@ -74,6 +71,16 @@ public final class CreateArgument extends Argument {
                     maxSlots,
                     new HashSet<>()
             ), true);
+
+            sender.sendMessage(TextFormat.GREEN + "Map " + level.getFolderName() + " successfully created!");
         });
+    }
+
+    private int parseInt(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (Exception e) {
+            return -1;
+        }
     }
 }

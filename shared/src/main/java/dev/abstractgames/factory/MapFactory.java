@@ -1,6 +1,7 @@
 package dev.abstractgames.factory;
 
 import cn.nukkit.utils.Config;
+import cn.nukkit.utils.TextFormat;
 import com.google.common.collect.ImmutableMap;
 import dev.abstractgames.AbstractPlugin;
 import dev.abstractgames.object.GameMap;
@@ -21,7 +22,9 @@ public final class MapFactory {
     @Getter private final Set<GameMap> maps = new HashSet<>();
 
     public void init() {
-        Config config = new Config(new File(AbstractPlugin.getInstance().getDataFolder(), "maps.json"));
+        AbstractPlugin plugin = AbstractPlugin.getInstance();
+
+        Config config = new Config(new File(plugin.getDataFolder(), "maps.json"));
 
         for (String mapName : config.getKeys(false)) {
             this.registerNewMap(new GameMap(
@@ -32,6 +35,12 @@ public final class MapFactory {
                             .map(serialized -> GameSpawn.deserialize((Map<String, Object>) serialized))
                             .collect(Collectors.toSet())
             ), false);
+        }
+
+        plugin.getLogger().info(TextFormat.AQUA + plugin.getAlias() + ": " + this.maps.size() + " map(s) loaded.");
+
+        if ((new File(plugin.getDataFolder(), "backups")).mkdirs()) {
+            plugin.getLogger().info(TextFormat.GREEN + String.format("Folder '%s' was generated successfully.", "arenas"));
         }
     }
 
@@ -60,8 +69,22 @@ public final class MapFactory {
     }
 
     public GameMap getRandomMap() {
-        // TODO: Find a random map with less games registered
+        GameMap betterMap = null;
 
-        return null;
+        for (GameMap map : this.maps) {
+            if (betterMap == null) {
+                betterMap = map;
+
+                continue;
+            }
+
+            if (ArenaFactory.getInstance().getMapArenas(map).size() > ArenaFactory.getInstance().getMapArenas(betterMap).size()) {
+                continue;
+            }
+
+            betterMap = map;
+        }
+
+        return betterMap;
     }
 }
